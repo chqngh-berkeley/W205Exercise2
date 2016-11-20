@@ -5,7 +5,7 @@
 (defn tweetwordcount [options]
    [
     ;; spout configuration
-    {"tweet-spout" (python-spout-spec
+    {"Tweets" (python-spout-spec
           options
           "spouts.tweets.Tweets"
           ["tweet"]
@@ -13,16 +13,16 @@
           )
     }
     ;; bolt configuration
-    {"parse-tweet-bolt" (python-bolt-spec
+    {"ParseTweet" (python-bolt-spec
           options
-          {"tweet-spout" :shuffle}
+          {"Tweets" :shuffle}
           "bolts.parse.ParseTweet"
           ["word"]
           :p 2
           )
-     "count-bolt" (python-bolt-spec
+     "CountBolt" (python-bolt-spec
           options
-          {"parse-tweet-bolt" ["word"]}
+          {"ParseTweet" ["word"]}
           "bolts.wordcount.WordCounter"
           ["word" "count"]
           :p 2
