@@ -25,14 +25,12 @@ class WordCounter(Bolt):
             cur.execute("INSERT INTO Tweetwordcount (word, count) VALUES (%s, %s)", (word,1))
         else:
             cur.execute("UPDATE Tweetwordcount SET count=count+1 WHERE word=%s", (word,))
-            for rec in records:
-               print "word = ", rec[0]
-               print "count = ", rec[1], "\n"
         conn.commit()
+        conn.close
 
         # Increment the local count
         self.counts[word] += 1
         self.emit([word, self.counts[word]])
 
         # Log the count - just to see the topology running
-        #self.log('%s: %d' % (word, self.counts[word]))
+        self.log('%s: %d' % (word, self.counts[word]))
