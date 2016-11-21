@@ -11,7 +11,7 @@ conn = psycopg2.connect(database="Tcount", user="postgres", password="pass", hos
 class WordCounter(Bolt):
 
     def initialize(self, conf, ctx):
-        self.counts = Counter()        
+        self.counts = Counter()
 
     def process(self, tup):
         word = tup.values[0]
@@ -19,7 +19,12 @@ class WordCounter(Bolt):
         #Update
         #Assuming you are passing the tuple (uWord, uCount) as an argument
         cur = conn.cursor()
-        cur.execute("UPDATE Tweetwordcount SET count=count+1 WHERE word=%s", word)
+        cur.execute("SELECT word, count from Tweetwordcount")
+        records = cur.fetchall()
+        if record.len() == 0:
+            cur.execute("INSERT INTO Tweetwordcount (word, count) VALUES (%s, 1)", word)
+        else:
+            cur.execute("UPDATE Tweetwordcount SET count=count+1 WHERE word=%s", word)
         conn.commit()
 
         # Increment the local count
