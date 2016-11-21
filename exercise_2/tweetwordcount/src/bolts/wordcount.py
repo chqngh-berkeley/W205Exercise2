@@ -5,7 +5,7 @@ from streamparse.bolt import Bolt
 
 import psycopg2
 
-conn = psycopg2.connect(database="Tcount", user="postgres", password="pass", host="localhost", port="5432")
+conn = psycopg2.connect(database="tcount", user="postgres", password="pass", host="localhost", port="5432")
 
 
 class WordCounter(Bolt):
@@ -21,10 +21,13 @@ class WordCounter(Bolt):
         cur = conn.cursor()
         cur.execute("SELECT word, count from Tweetwordcount")
         records = cur.fetchall()
-        if record.len() == 0:
-            cur.execute("INSERT INTO Tweetwordcount (word, count) VALUES (%s, 1)", word)
+        if len(records) == 0:
+            cur.execute("INSERT INTO Tweetwordcount (word, count) VALUES (%s, %s)", (word,1))
         else:
-            cur.execute("UPDATE Tweetwordcount SET count=count+1 WHERE word=%s", word)
+            cur.execute("UPDATE Tweetwordcount SET count=count+1 WHERE word=%s", (word,))
+            for rec in records:
+               print "word = ", rec[0]
+               print "count = ", rec[1], "\n"
         conn.commit()
 
         # Increment the local count
@@ -32,4 +35,4 @@ class WordCounter(Bolt):
         self.emit([word, self.counts[word]])
 
         # Log the count - just to see the topology running
-        self.log('%s: %d' % (word, self.counts[word]))
+        #self.log('%s: %d' % (word, self.counts[word]))
