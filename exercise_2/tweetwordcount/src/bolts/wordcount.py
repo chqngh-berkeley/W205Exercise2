@@ -19,13 +19,14 @@ class WordCounter(Bolt):
         #Update
         #Assuming you are passing the tuple (uWord, uCount) as an argument
         cur = conn.cursor()
-        cur.execute("SELECT word, count from Tweetwordcount")
+        cur.execute("SELECT word, count from Tweetwordcount WHERE word='%s'", (word,))
         records = cur.fetchall()
         if len(records) == 0:
             cur.execute("INSERT INTO Tweetwordcount (word, count) VALUES (%s, %s)", (word,1))
+            conn.commit()
         else:
             cur.execute("UPDATE Tweetwordcount SET count=count+1 WHERE word=%s", (word,))
-        conn.commit()
+            conn.commit()
         conn.close
 
         # Increment the local count
