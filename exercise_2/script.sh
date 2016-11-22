@@ -22,6 +22,9 @@ pip install tweepy;
 # create the db
 python create_tcount.py;
 
+rm -rf ~/tweetwordcount
+cp tweetwordcount ~/
+
 # start sparse
-cd tweetwordcount;
+cd ~/tweetwordcount;
 sparse run;
