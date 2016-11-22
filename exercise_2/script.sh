@@ -2,3 +2,20 @@ ssh -i "UCB W205 HW2.pem" root@ec2-54-165-130-188.compute-1.amazonaws.com
 
 
 sparse quickstart EX2Tweetwordcount;
+
+rm EX2Tweetwordcount/src/spouts/words.py;
+rm EX2Tweetwordcount/src/bolts/wordcount.py;
+rm EX2Tweetwordcount/topologies/wordcount.clj;
+rm EX2Tweetwordcount/virtualenvs/wordcount.txt;
+
+cp sparsefiles/tweets.py EX2Tweetwordcount/src/spouts/;
+cp sparsefiles/wordcount.py EX2Tweetwordcount/src/bolts/;
+cp sparsefiles/parse.py EX2Tweetwordcount/src/bolts/;
+cp sparsefiles/tweetwordcount.txt EX2Tweetwordcount/virtualenvs/;
+cp sparsefiles/tweetwordcount.clj EX2Tweetwordcount/topologies/;
+
+python create_tcount.py;
+
+cd EX2Tweetwordcount;
+
+sparse run;
