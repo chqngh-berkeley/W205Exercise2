@@ -20,6 +20,8 @@ cp sparsefiles/parse.py EX2Tweetwordcount/src/bolts/;
 cp sparsefiles/tweetwordcount.txt EX2Tweetwordcount/virtualenvs/;
 cp sparsefiles/tweetwordcount.clj EX2Tweetwordcount/topologies/;
 
+cp -R EX2Tweetwordcount ~/root;
+
 # create the db
 python create_tcount.py;
 
