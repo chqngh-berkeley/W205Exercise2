@@ -5,6 +5,9 @@
 pip install psycopg2;
 pip install tweepy;
 
+cd ~/;
+
+rm -rf EX2Tweetwordcount;
 
 sparse quickstart EX2Tweetwordcount;
 
@@ -20,11 +23,9 @@ cp sparsefiles/parse.py EX2Tweetwordcount/src/bolts/;
 cp sparsefiles/tweetwordcount.txt EX2Tweetwordcount/virtualenvs/;
 cp sparsefiles/tweetwordcount.clj EX2Tweetwordcount/topologies/;
 
-cp -R EX2Tweetwordcount ~/root;
-
 # create the db
 python create_tcount.py;
 
 # start sparse
-cd ~/root/EX2Tweetwordcount;
+cd EX2Tweetwordcount;
 sparse run;
