@@ -23,7 +23,7 @@ pip install tweepy;
 python create_tcount.py;
 
 rm -rf ~/tweetwordcount
-cp tweetwordcount ~/
+cp -R tweetwordcount ~/
 
 # start sparse
 cd ~/tweetwordcount;
