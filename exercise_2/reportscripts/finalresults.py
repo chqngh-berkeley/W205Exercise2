@@ -11,8 +11,8 @@ def main(argv):
         for rec in records:
            print rec
     else:
-        cur.execute("SELECT word, count from Tweetwordcount where word =%s", (argv[0]))
-        record = cur.fetchOne()
+        cur.execute("SELECT word, count from Tweetwordcount where word =%s", (argv[0],))
+        record = cur.fetchone()
         print "Total number of occurences of \"%s\" : %d" % (record[0], record[1])
     conn.commit()
     conn.close
