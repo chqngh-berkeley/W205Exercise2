@@ -26,5 +26,5 @@ cp -R EX2Tweetwordcount ~/root;
 python create_tcount.py;
 
 # start sparse
-cd EX2Tweetwordcount;
+cd ~/root/EX2Tweetwordcount;
 sparse run;
